@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PizzaMe</string>
+    <string name="default_location">Current Location</string>
 </resources>
