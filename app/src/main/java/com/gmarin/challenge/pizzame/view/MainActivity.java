@@ -1,15 +1,19 @@
 package com.gmarin.challenge.pizzame.view;
 
 import android.Manifest;
+import androidx.lifecycle.ViewModelProvider;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.gmarin.challenge.pizzame.R;
+import com.gmarin.challenge.pizzame.viewmodel.BusinessViewModel;
 
 public class MainActivity extends AppCompatActivity {
+
+    private BusinessViewModel mModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

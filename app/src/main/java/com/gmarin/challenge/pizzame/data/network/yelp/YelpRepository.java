@@ -1,6 +1,6 @@
 package com.gmarin.challenge.pizzame.data.network.yelp;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.gmarin.challenge.pizzame.data.model.Business;
 import com.gmarin.challenge.pizzame.data.model.BusinessDistanceComparator;
