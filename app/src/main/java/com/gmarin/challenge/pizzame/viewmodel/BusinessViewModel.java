@@ -16,16 +16,19 @@ public class BusinessViewModel extends AndroidViewModel {
 
     private YelpRepository mYelpRepository;
 
-    public BusinessViewModel (@NonNull Application application, YelpRepository repository) {
+    public BusinessViewModel (@NonNull Application application) {
         super(application);
-        mYelpRepository = repository;
+        mYelpRepository = new YelpRepository();
     }
 
-    public void searchNearestBusinessesFromCoordinates(String latitude, String longitude) {
+    public void searchNearestBusinessesFrom(String latitude, String longitude) {
         mObservableBusinesses = mYelpRepository.searchNearestBusinesses(latitude, longitude);
     }
 
     public MutableLiveData<List<Business>> getNearestBusinesses() {
+        if (mObservableBusinesses == null) {
+            return new MutableLiveData<>();
+        }
         return mObservableBusinesses;
     }
 }

@@ -1,24 +1,46 @@
 package com.gmarin.challenge.pizzame.view;
 
 import android.Manifest;
-import androidx.lifecycle.ViewModelProvider;
 import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
+import android.util.Log;
 import android.widget.Toast;
 
 import com.gmarin.challenge.pizzame.R;
+import com.gmarin.challenge.pizzame.data.model.Business;
 import com.gmarin.challenge.pizzame.viewmodel.BusinessViewModel;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private BusinessViewModel mModel;
+    private Observer<List<Business>> mBusinessesObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mModel = ViewModelProviders.of(this).get(BusinessViewModel.class);
+
+        mBusinessesObserver = new Observer<List<Business>>() {
+            @Override
+            public void onChanged(@Nullable final List<Business> businesses) {
+                for (Business b : businesses) {
+                    Log.d("Business", b.getName());
+                }
+            }
+        };
+
+        mModel.getNearestBusinesses().observe(this, mBusinessesObserver);
+
     }
 
     @Override
@@ -27,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
         // revoked while we were on the stack.
         if (!isGpsPermissionGranted()) {
             requestGpsPermission();
+        } else {
+            // TODO hook up google fuse location and UI triggers
+            // TODO handle no connectivity
+            mModel.searchNearestBusinessesFrom("40.54", "-74.58");
         }
         super.onResume();
     }
