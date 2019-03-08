@@ -29,7 +29,7 @@ public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.business_short_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.business_list_view_item, parent, false);
         return new BusinessViewHolder(view);
     }
 
@@ -42,8 +42,16 @@ public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 // TODO start detailed activity
             }
         });
-        viewHolder.getNameView().setText(mDataSet.get(position).getName());
-        viewHolder.getDistanceView().setText(String.valueOf(mDataSet.get(position).getRating()));
+        Business business = mDataSet.get(position);
+        viewHolder.getNameView().setText(position+1 + "." + business.getName());
+        viewHolder.getDistanceView().setText(String.valueOf(business.getRating()) + " mi");
+        // move to another location
+        StringBuilder sb = new StringBuilder();
+        for (String address : business.getLocation().getDisplay_address()) {
+            sb.append(address);
+        }
+        viewHolder.getAddressView().setText(sb.toString());
+        viewHolder.getPhoneView().setText(business.getDisplay_phone());
     }
 
     @Override
@@ -54,11 +62,16 @@ public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public class BusinessViewHolder extends RecyclerView.ViewHolder {
         private final TextView nameView;
         private final TextView distanceView;
+        private final TextView addressView;
+
+        private final TextView phoneView;
 
         public BusinessViewHolder(@NonNull View itemView) {
             super(itemView);
             nameView = itemView.findViewById(R.id.business_name_text_view);
             distanceView = itemView.findViewById(R.id.business_distance_text_view);
+            addressView = itemView.findViewById(R.id.business_address_text_view);
+            phoneView = itemView.findViewById(R.id.business_phone_text_view);
         }
 
         public TextView getDistanceView() {
@@ -67,6 +80,14 @@ public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public TextView getNameView() {
             return nameView;
+        }
+
+        public TextView getAddressView() {
+            return addressView;
+        }
+
+        public TextView getPhoneView() {
+            return phoneView;
         }
     }
 }

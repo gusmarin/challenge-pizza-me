@@ -12,7 +12,7 @@ import java.util.List;
 
 public class BusinessViewModel extends AndroidViewModel {
 
-    private MutableLiveData<List<Business>> mObservableBusinesses;
+    private MutableLiveData<List<Business>> mObservableBusinesses = new MutableLiveData<>();
 
     private YelpRepository mYelpRepository;
 
@@ -22,13 +22,10 @@ public class BusinessViewModel extends AndroidViewModel {
     }
 
     public void searchNearestBusinessesFrom(String latitude, String longitude) {
-        mObservableBusinesses = mYelpRepository.searchNearestBusinesses(latitude, longitude);
+        mYelpRepository.searchNearestBusinesses(mObservableBusinesses, latitude, longitude);
     }
 
     public MutableLiveData<List<Business>> getNearestBusinesses() {
-        if (mObservableBusinesses == null) {
-            return new MutableLiveData<>();
-        }
         return mObservableBusinesses;
     }
 }
