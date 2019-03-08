@@ -1,8 +1,12 @@
 package com.gmarin.challenge.pizzame.view;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
+
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -22,6 +26,10 @@ import com.gmarin.challenge.pizzame.R;
 import com.gmarin.challenge.pizzame.data.model.Business;
 import com.gmarin.challenge.pizzame.viewmodel.BusinessViewModel;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private BusinessViewModel mModel;
     private Observer<List<Business>> mBusinessesObserver;
     private BusinessListAdapter mDataAdapter;
+    private FusedLocationProviderClient mLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         mModel.getNearestBusinesses().observe(this, mBusinessesObserver);
-
+        mLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
     private void initViews() {
@@ -63,11 +72,19 @@ public class MainActivity extends AppCompatActivity {
 
         Button search = findViewById(R.id.search_button);
         search.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("MissingPermission")
             @Override
             public void onClick(View v) {
-                // TODO hook up google fuse location and UI triggers
                 // TODO handle no connectivity
-                mModel.searchNearestBusinessesFrom("40.54", "-74.58");
+                mLocationClient.getLastLocation()
+                        .addOnSuccessListener(new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                String latitude = String.valueOf(location.getLatitude());
+                                String longitude = String.valueOf(location.getLongitude());
+                                mModel.searchNearestBusinessesFrom(latitude, longitude);
+                            }
+                        });
             }
         });
 

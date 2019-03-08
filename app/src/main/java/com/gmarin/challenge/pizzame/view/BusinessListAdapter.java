@@ -49,8 +49,9 @@ public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         StringBuilder sb = new StringBuilder();
         for (String address : business.getLocation().getDisplay_address()) {
             sb.append(address);
+            sb.append(" ");
         }
-        viewHolder.getAddressView().setText(sb.toString());
+        viewHolder.getAddressView().setText(sb.toString().trim());
         viewHolder.getPhoneView().setText(business.getDisplay_phone());
     }
 
