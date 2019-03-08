@@ -9,20 +9,27 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.gmarin.challenge.pizzame.R;
 import com.gmarin.challenge.pizzame.data.model.Business;
 import com.gmarin.challenge.pizzame.viewmodel.BusinessViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private BusinessViewModel mModel;
     private Observer<List<Business>> mBusinessesObserver;
+    private BusinessListAdapter mDataAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +37,40 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mModel = ViewModelProviders.of(this).get(BusinessViewModel.class);
 
+        initViews();
+
         mBusinessesObserver = new Observer<List<Business>>() {
             @Override
             public void onChanged(@Nullable final List<Business> businesses) {
-                for (Business b : businesses) {
-                    Log.d("Business", b.getName());
+                if (businesses != null) {
+                    mDataAdapter.setDataSet(businesses);
+                    mDataAdapter.notifyDataSetChanged();
                 }
             }
         };
 
         mModel.getNearestBusinesses().observe(this, mBusinessesObserver);
+
+    }
+
+    private void initViews() {
+        RecyclerView listView = findViewById(R.id.locations_list);
+        mDataAdapter = new BusinessListAdapter(this);
+        listView.setAdapter(mDataAdapter);
+        listView.setLayoutManager(new LinearLayoutManager(this));
+        listView.setItemAnimator(new DefaultItemAnimator());
+        listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        listView.setHasFixedSize(true);
+
+        Button search = findViewById(R.id.search_button);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO hook up google fuse location and UI triggers
+                // TODO handle no connectivity
+                mModel.searchNearestBusinessesFrom("40.54", "-74.58");
+            }
+        });
 
     }
 
@@ -49,10 +80,6 @@ public class MainActivity extends AppCompatActivity {
         // revoked while we were on the stack.
         if (!isGpsPermissionGranted()) {
             requestGpsPermission();
-        } else {
-            // TODO hook up google fuse location and UI triggers
-            // TODO handle no connectivity
-            mModel.searchNearestBusinessesFrom("40.54", "-74.58");
         }
         super.onResume();
     }

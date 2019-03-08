@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="search_bar_height">26dp</dimen>
+    <dimen name="business_item_height">26dp</dimen>
+    <dimen name="business_item_horizontal">16dp</dimen>
+    <dimen name="business_item_vertical">8dp</dimen>
 </resources>
