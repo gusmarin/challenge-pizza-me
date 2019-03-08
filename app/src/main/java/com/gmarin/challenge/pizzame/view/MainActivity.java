@@ -22,7 +22,6 @@ import com.gmarin.challenge.pizzame.R;
 import com.gmarin.challenge.pizzame.data.model.Business;
 import com.gmarin.challenge.pizzame.viewmodel.BusinessViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {

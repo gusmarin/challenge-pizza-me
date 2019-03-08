@@ -38,16 +38,15 @@ public class YelpRepository {
         return new OkHttpClient.Builder().addInterceptor(logging).build();
     }
 
-    public MutableLiveData<List<Business>> searchNearestBusinesses(String latitude, String longitude) {
+    public void searchNearestBusinesses(final MutableLiveData<List<Business>> liveData, String latitude, String longitude) {
 
-        final MutableLiveData<List<Business>> data = new MutableLiveData<>();
         YelpWebService webService = mRetrofit.create(YelpWebService.class);
         Call<Businesses> call = webService.getNearestBusiness(latitude, longitude, PIZZA_TERM);
         call.enqueue(new Callback<Businesses>(){
 
             @Override
             public void onFailure(Call<Businesses> call, Throwable t) {
-                data.setValue(null);
+                liveData.setValue(null);
             }
 
             @Override
@@ -55,13 +54,10 @@ public class YelpRepository {
                 if (response.isSuccessful()) {
                     Businesses businesses = response.body();
                     businesses.getBusinesses().sort(new BusinessDistanceComparator());
-                    data.setValue(businesses.getBusinesses());
+                    liveData.setValue(businesses.getBusinesses());
                 }
             }
         });
-
-
-        return data;
     }
 
 }
