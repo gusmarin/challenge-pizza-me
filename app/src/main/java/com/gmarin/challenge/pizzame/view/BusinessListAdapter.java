@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.gmarin.challenge.pizzame.R;
 import com.gmarin.challenge.pizzame.data.model.Business;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -44,7 +45,9 @@ public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         });
         Business business = mDataSet.get(position);
         viewHolder.getNameView().setText(position+1 + "." + business.getName());
-        viewHolder.getDistanceView().setText(String.valueOf(business.getRating()) + " mi");
+
+        String distance = (new DecimalFormat("##.##").format(business.getDistance()));
+        viewHolder.getDistanceView().setText(distance + " mi");
         // move to another location
         StringBuilder sb = new StringBuilder();
         for (String address : business.getLocation().getDisplay_address()) {

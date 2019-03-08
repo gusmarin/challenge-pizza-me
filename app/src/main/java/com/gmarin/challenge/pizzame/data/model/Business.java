@@ -69,7 +69,7 @@ public class Business {
     }
 
     public double getDistance() {
-        return distance;
+        return distance/1000;
     }
 
     public void setDistance(double distance) {
