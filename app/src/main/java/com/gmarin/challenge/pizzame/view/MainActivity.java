@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.gmarin.challenge.pizzame.PizzaMeApplication;
 import com.gmarin.challenge.pizzame.R;
 import com.gmarin.challenge.pizzame.data.model.Business;
 import com.gmarin.challenge.pizzame.viewmodel.BusinessViewModel;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
         setContentView(R.layout.activity_main);
         mModel = ViewModelProviders.of(this).get(BusinessViewModel.class);
 
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 if (businesses != null) {
                     mDataAdapter.setDataSet(businesses);
                     mDataAdapter.notifyDataSetChanged();
+                    ((PizzaMeApplication)getApplication()).setBusinessCache(businesses);
                 }
             }
         };

@@ -1,6 +1,7 @@
 package com.gmarin.challenge.pizzame.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static com.gmarin.challenge.pizzame.view.DetailActivity.EXTRA_ID;
 
 public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Business> mDataSet;
@@ -37,13 +40,16 @@ public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         BusinessViewHolder viewHolder = (BusinessViewHolder) holder;
+        final Business business = mDataSet.get(position);
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO start detailed activity
+                Intent intent = new Intent(mContext, DetailActivity.class);
+                intent.putExtra(EXTRA_ID, business.getId());
+                mContext.startActivity(intent);
             }
         });
-        Business business = mDataSet.get(position);
         viewHolder.getNameView().setText(position+1 + "." + business.getName());
 
         String distance = (new DecimalFormat("##.##").format(business.getDistance()));
