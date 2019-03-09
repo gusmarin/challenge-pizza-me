@@ -11,6 +11,9 @@ public class Business {
     @SerializedName("name")
     private String name;
 
+    @SerializedName("image_url")
+    private String image_url;
+
     @SerializedName("rating")
     private double rating;
 
@@ -50,6 +53,14 @@ public class Business {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
     public double getRating() {

@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
         setContentView(R.layout.activity_main);
         mModel = ViewModelProviders.of(this).get(BusinessViewModel.class);
 
