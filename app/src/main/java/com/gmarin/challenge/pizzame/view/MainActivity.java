@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.gmarin.challenge.pizzame.PizzaMeApplication;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         mBusinessesObserver = new Observer<List<Business>>() {
             @Override
             public void onChanged(@Nullable final List<Business> businesses) {
+                ProgressBar spinner = findViewById(R.id.progressBar);
+                spinner.setVisibility(View.GONE);
                 if (businesses != null) {
                     mDataAdapter.setDataSet(businesses);
                     mDataAdapter.notifyDataSetChanged();
@@ -70,12 +73,16 @@ public class MainActivity extends AppCompatActivity {
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.setItemAnimator(new DefaultItemAnimator());
         listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        ProgressBar spinner = findViewById(R.id.progressBar);
+        spinner.setVisibility(View.GONE);
 
         Button search = findViewById(R.id.search_button);
         search.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("MissingPermission")
             @Override
             public void onClick(View v) {
+                ProgressBar spinner = findViewById(R.id.progressBar);
+                spinner.setVisibility(View.VISIBLE);
                 // TODO handle no connectivity
                 mLocationClient.getLastLocation()
                         .addOnSuccessListener(new OnSuccessListener<Location>() {
