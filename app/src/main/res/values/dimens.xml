@@ -2,6 +2,9 @@
 <resources>
     <dimen name="search_bar_height">26dp</dimen>
     <dimen name="business_item_height">22dp</dimen>
-    <dimen name="business_item__margin_horizontal">12dp</dimen>
+    <dimen name="business_item__margin_horizontal">16dp</dimen>
     <dimen name="business_item_vertical">8dp</dimen>
+    <dimen name="business_item__margin_vertical">12dp</dimen>
+    <dimen name="floating_map_button_margin_bottom">12dp</dimen>
+    <dimen name="business_image_margin">16dp</dimen>
 </resources>

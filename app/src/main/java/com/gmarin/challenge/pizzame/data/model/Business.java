@@ -17,6 +17,9 @@ public class Business {
     @SerializedName("rating")
     private double rating;
 
+    @SerializedName("review_count")
+    private int review_count;
+
     @SerializedName("display_phone")
     private String display_phone;
 
@@ -94,4 +97,13 @@ public class Business {
     public void setLocation(Location location) {
         this.location = location;
     }
+
+    public int getReview_count() {
+        return review_count;
+    }
+
+    public void setReview_count(int review_count) {
+        this.review_count = review_count;
+    }
+
 }

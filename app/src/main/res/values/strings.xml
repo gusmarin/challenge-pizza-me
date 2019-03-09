@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PizzaMe</string>
     <string name="default_location">Current Location</string>
+    <string name="map_button_hint">Open in maps</string>
 </resources>

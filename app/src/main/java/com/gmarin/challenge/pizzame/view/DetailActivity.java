@@ -15,9 +15,11 @@ import com.gmarin.challenge.pizzame.data.model.Business;
 import java.text.DecimalFormat;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.core.app.NavUtils;
 
 import com.gmarin.challenge.pizzame.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
@@ -26,7 +28,6 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -43,11 +44,13 @@ public class DetailActivity extends AppCompatActivity {
 
     private void initViews(final Business business) {
         setContentView(R.layout.business_detail_view);
-        TextView nameView = findViewById(R.id.business_name_text_view);
         TextView distanceView = findViewById(R.id.business_distance_text_view);
         final TextView addressView = findViewById(R.id.business_address_text_view);
         TextView phoneView = findViewById(R.id.business_phone_text_view);
         ImageView imageView = findViewById(R.id.business_image_view);
+        FloatingActionButton mapButton = findViewById(R.id.floating_map_button);
+        AppCompatRatingBar ratingBar = findViewById(R.id.business_rating_bar);
+        TextView ratingView = findViewById(R.id.business_rating_count);
 
         String distance = (new DecimalFormat("##.##").format(business.getDistance()));
         distanceView.setText(distance + " mi");
@@ -61,10 +64,14 @@ public class DetailActivity extends AppCompatActivity {
         phoneView.setText(business.getDisplay_phone());
         Picasso.get().load(business.getImage_url()).fit().into(imageView);
 
+        ratingBar.setRating((float)business.getRating());
+        ratingBar.setIsIndicator(true);
+        ratingView.setText(business.getReview_count() + " Reviews");
+
         Linkify.addLinks(phoneView, Linkify.PHONE_NUMBERS);
         phoneView.setLinkTextColor(getResources().getColor(R.color.colorPrimary, getTheme()));
 
-        addressView.setOnClickListener(new View.OnClickListener() {
+        mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 StringBuilder uriBuilder = new StringBuilder();
@@ -78,6 +85,8 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
     @Override
