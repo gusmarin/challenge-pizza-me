@@ -3,6 +3,7 @@ package com.gmarin.challenge.pizzame.view;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,7 +63,14 @@ public class DetailActivity extends AppCompatActivity {
         }
         addressView.setText(sb.toString().trim());
         phoneView.setText(business.getDisplay_phone());
-        Picasso.get().load(business.getImage_url()).fit().into(imageView);
+        if (TextUtils.isEmpty(business.getImage_url())) {
+            Picasso.get().load(android.R.drawable.ic_menu_gallery).into(imageView);
+        } else {
+            Picasso.get().load(business.getImage_url())
+                    .fit()
+                    .error(android.R.drawable.stat_notify_error)
+                    .into(imageView);
+        }
 
         ratingBar.setRating((float)business.getRating());
         ratingBar.setIsIndicator(true);
