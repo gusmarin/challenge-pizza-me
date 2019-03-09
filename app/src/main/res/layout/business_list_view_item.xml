@@ -1,43 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/business_item"
+<androidx.cardview.widget.CardView
+    android:id="@+id/card_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="92dp">
+    android:layout_height="wrap_content"
+    card_view:cardBackgroundColor="@color/colorBackground"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="6dp"
+    card_view:cardUseCompatPadding="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/business_name_text_view"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="@dimen/business_item__margin_horizontal"
-            android:gravity="bottom|left"/>
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/business_image_margin"
+            android:paddingVertical="@dimen/business_image_margin">
 
-        <TextView
-            android:id="@+id/business_distance_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/business_item_height"
-            android:gravity="bottom|left"/>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/business_name_text_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="roboto"
+                    android:textSize="19dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginHorizontal="@dimen/business_item__margin_horizontal"
+                    android:gravity="bottom|left"/>
 
-    <TextView
-        android:id="@+id/business_address_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/business_item_height"
-        android:layout_marginHorizontal="@dimen/business_item__margin_horizontal"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/business_phone_text_view"
-        android:gravity="bottom|left"/>
+                <TextView
+                    android:id="@+id/business_distance_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/business_item_height"
+                    android:textColor="@color/colorAccent"
+                    android:gravity="bottom|left"/>
+            </LinearLayout>
 
-    <TextView
-        android:id="@id/business_phone_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/business_item_height"
-        android:layout_marginHorizontal="@dimen/business_item__margin_horizontal"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:gravity="bottom|left" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
-</RelativeLayout>
+                <TextView
+                    android:id="@+id/business_address_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/business_item__margin_horizontal"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="bottom|left"/>
+
+                <TextView
+                    android:id="@+id/business_phone_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/business_item__margin_horizontal"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/business_address_text_view"
+                    android:gravity="bottom|left" />
+            </RelativeLayout>
+
+        </LinearLayout>
+</androidx.cardview.widget.CardView>

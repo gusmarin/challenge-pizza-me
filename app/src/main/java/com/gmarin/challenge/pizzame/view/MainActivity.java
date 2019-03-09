@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.setItemAnimator(new DefaultItemAnimator());
         listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        listView.setHasFixedSize(true);
 
         Button search = findViewById(R.id.search_button);
         search.setOnClickListener(new View.OnClickListener() {
