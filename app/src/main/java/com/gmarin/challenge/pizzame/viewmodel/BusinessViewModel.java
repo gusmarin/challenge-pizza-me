@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.annotation.NonNull;
 
-import com.gmarin.challenge.pizzame.data.model.Business;
+import com.gmarin.challenge.pizzame.data.network.yelp.model.Business;
 import com.gmarin.challenge.pizzame.data.network.yelp.YelpRepository;
 
 import java.util.List;

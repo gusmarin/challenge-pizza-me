@@ -2,7 +2,7 @@ package com.gmarin.challenge.pizzame;
 
 import android.app.Application;
 
-import com.gmarin.challenge.pizzame.data.model.Business;
+import com.gmarin.challenge.pizzame.data.network.yelp.model.Business;
 
 import java.util.HashMap;
 import java.util.List;

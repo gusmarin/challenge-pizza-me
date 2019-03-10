@@ -2,7 +2,6 @@ package com.gmarin.challenge.pizzame.view;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
 
@@ -25,7 +24,7 @@ import android.widget.Toast;
 
 import com.gmarin.challenge.pizzame.PizzaMeApplication;
 import com.gmarin.challenge.pizzame.R;
-import com.gmarin.challenge.pizzame.data.model.Business;
+import com.gmarin.challenge.pizzame.data.network.yelp.model.Business;
 import com.gmarin.challenge.pizzame.viewmodel.BusinessViewModel;
 
 import com.google.android.gms.location.FusedLocationProviderClient;

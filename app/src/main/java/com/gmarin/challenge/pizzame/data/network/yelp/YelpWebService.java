@@ -1,6 +1,6 @@
 package com.gmarin.challenge.pizzame.data.network.yelp;
 
-import com.gmarin.challenge.pizzame.data.model.Businesses;
+import com.gmarin.challenge.pizzame.data.network.yelp.model.Businesses;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

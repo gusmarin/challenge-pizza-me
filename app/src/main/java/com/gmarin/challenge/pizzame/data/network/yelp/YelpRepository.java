@@ -1,12 +1,10 @@
 package com.gmarin.challenge.pizzame.data.network.yelp;
 
-import androidx.lifecycle.MutableLiveData;
+import com.gmarin.challenge.pizzame.data.IDataCallback;
+import com.gmarin.challenge.pizzame.data.IDataImpl;
+import com.gmarin.challenge.pizzame.data.network.yelp.model.Businesses;
+import com.gmarin.challenge.pizzame.data.network.yelp.model.BusinessDistanceComparator;
 
-import com.gmarin.challenge.pizzame.data.model.Business;
-import com.gmarin.challenge.pizzame.data.model.Businesses;
-import com.gmarin.challenge.pizzame.data.model.BusinessDistanceComparator;
-
-import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -16,11 +14,10 @@ import retrofit2.Retrofit;
 import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class YelpRepository {
+public class YelpRepository implements IDataImpl {
     private static final String BASE_URL = "https://api.yelp.com";
     // TODO hide this key
     protected static final String API_KEY = "Bearer TFmaxhGD522LOAxMjLExlKsIfu5j5J5FsdR1UuwQwaZ1EzoGiPLpddlIrdlwVGbFDxz9MVVSpS32ItWDewpjCqT-5JHC92ym2hRjamDmCJ-N8mpWMIGIu0oeWvJ_XHYx";
-    private static final String PIZZA_TERM = "pizza";
 
     private Retrofit mRetrofit;
 
@@ -38,15 +35,15 @@ public class YelpRepository {
         return new OkHttpClient.Builder().addInterceptor(logging).build();
     }
 
-    public void searchNearestBusinesses(final MutableLiveData<List<Business>> liveData, String latitude, String longitude) {
-
+    @Override
+    public void getNearestPlaces(String latitude, String longitude, String term, final IDataCallback callback) {
         YelpWebService webService = mRetrofit.create(YelpWebService.class);
-        Call<Businesses> call = webService.getNearestBusiness(latitude, longitude, PIZZA_TERM);
-        call.enqueue(new Callback<Businesses>(){
+        Call<Businesses> call = webService.getNearestBusiness(latitude, longitude, term);
 
+        call.enqueue(new Callback<Businesses>(){
             @Override
             public void onFailure(Call<Businesses> call, Throwable t) {
-                liveData.setValue(null);
+                callback.onFailure("Fail to obtain data");
             }
 
             @Override
@@ -54,10 +51,9 @@ public class YelpRepository {
                 if (response.isSuccessful()) {
                     Businesses businesses = response.body();
                     businesses.getBusinesses().sort(new BusinessDistanceComparator());
-                    liveData.setValue(businesses.getBusinesses());
+                    callback.onSuccess(businesses);
                 }
             }
         });
     }
-
 }

@@ -1,4 +1,4 @@
-package com.gmarin.challenge.pizzame.data.model;
+package com.gmarin.challenge.pizzame.data.network.yelp.model;
 
 import com.google.gson.annotations.SerializedName;
 

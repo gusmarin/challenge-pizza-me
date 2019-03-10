@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gmarin.challenge.pizzame.R;
-import com.gmarin.challenge.pizzame.data.model.Business;
+import com.gmarin.challenge.pizzame.data.network.yelp.model.Business;
 
 import java.text.DecimalFormat;
 import java.util.List;
