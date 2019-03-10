@@ -22,6 +22,10 @@ public class DataRepository implements IDataRepository {
             @Override
             public void onSuccess(Businesses businesses) {
                 List<Place> placeList = new ArrayList<>();
+                if (businesses == null || businesses.getBusinesses().isEmpty()) {
+                    callback.onFailure("No places found");
+                    return;
+                }
                 for (Business business: businesses.getBusinesses()) {
                     placeList.add(fromBusiness(business));
                 }
