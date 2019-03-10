@@ -2,13 +2,14 @@ package com.gmarin.challenge.pizzame.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gmarin.challenge.pizzame.R;
-import com.gmarin.challenge.pizzame.data.network.yelp.model.Business;
+import com.gmarin.challenge.pizzame.viewmodel.Place;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -16,52 +17,55 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.gmarin.challenge.pizzame.view.DetailActivity.EXTRA_ID;
+import static com.gmarin.challenge.pizzame.view.DetailActivity.*;
 
 public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Business> mDataSet;
+    private List<Place> mDataSet;
     private Context mContext;
 
     public BusinessListAdapter(Context context) {
         mContext = context;
     }
 
-    public void setDataSet(List<Business> businesses) {
-        mDataSet = businesses;
+    public void setDataSet(List<Place> places) {
+        mDataSet = places;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.business_list_view_item, parent, false);
-        return new BusinessViewHolder(view);
+        return new PlaceViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        BusinessViewHolder viewHolder = (BusinessViewHolder) holder;
-        final Business business = mDataSet.get(position);
+        PlaceViewHolder viewHolder = (PlaceViewHolder) holder;
+        final Place place = mDataSet.get(position);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DetailActivity.class);
-                intent.putExtra(EXTRA_ID, business.getId());
+                Bundle bundle = new Bundle();
+                bundle.putString(EXTRA_NAME, place.getName());
+                bundle.putString(EXTRA_ADDRESS, place.getAddress());
+                bundle.putString(EXTRA_IMAGE_URL, place.getImageUrl());
+                bundle.putFloat(EXTRA_RATING, place.getRating());
+                bundle.putInt(EXTRA_REVIEW_COUNT, place.getReviewCount());
+                bundle.putString(EXTRA_PHONE_NUMBER, place.getPhoneNumber());
+                bundle.putDouble(EXTRA_DISTANCE, place.getDistance());
+                intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }
         });
-        viewHolder.getNameView().setText(position+1 + "." + business.getName());
+        viewHolder.getNameView().setText(position+1 + "." + place.getName());
 
-        String distance = (new DecimalFormat("##.##").format(business.getDistance()));
+        String distance = (new DecimalFormat("##.##").format(place.getDistance()));
         viewHolder.getDistanceView().setText(distance + " mi");
-        // move to another location
-        StringBuilder sb = new StringBuilder();
-        for (String address : business.getLocation().getDisplay_address()) {
-            sb.append(address);
-            sb.append(" ");
-        }
-        viewHolder.getAddressView().setText(sb.toString().trim());
-        viewHolder.getPhoneView().setText(business.getDisplay_phone());
+
+        viewHolder.getAddressView().setText(place.getAddress());
+        viewHolder.getPhoneView().setText(place.getPhoneNumber());
     }
 
     @Override
@@ -69,14 +73,14 @@ public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return mDataSet != null ? mDataSet.size() : 0;
     }
 
-    public class BusinessViewHolder extends RecyclerView.ViewHolder {
+    public class PlaceViewHolder extends RecyclerView.ViewHolder {
         private final TextView nameView;
         private final TextView distanceView;
         private final TextView addressView;
 
         private final TextView phoneView;
 
-        public BusinessViewHolder(@NonNull View itemView) {
+        public PlaceViewHolder(@NonNull View itemView) {
             super(itemView);
             nameView = itemView.findViewById(R.id.business_name_text_view);
             distanceView = itemView.findViewById(R.id.business_distance_text_view);

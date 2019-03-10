@@ -22,10 +22,9 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.gmarin.challenge.pizzame.PizzaMeApplication;
 import com.gmarin.challenge.pizzame.R;
-import com.gmarin.challenge.pizzame.data.network.yelp.model.Business;
-import com.gmarin.challenge.pizzame.viewmodel.BusinessViewModel;
+import com.gmarin.challenge.pizzame.viewmodel.Place;
+import com.gmarin.challenge.pizzame.viewmodel.PlaceViewModel;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -35,30 +34,31 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BusinessViewModel mModel;
-    private Observer<List<Business>> mBusinessesObserver;
+    private PlaceViewModel mModel;
+    private Observer<List<Place>> mBusinessesObserver;
     private BusinessListAdapter mDataAdapter;
     private FusedLocationProviderClient mLocationClient;
+
+    private static final String PIZZA_TERM = "pizza";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mModel = ViewModelProviders.of(this).get(BusinessViewModel.class);
+        mModel = ViewModelProviders.of(this).get(PlaceViewModel.class);
 
         initViews();
 
-        mBusinessesObserver = new Observer<List<Business>>() {
+        mBusinessesObserver = new Observer<List<Place>>() {
             @Override
-            public void onChanged(@Nullable final List<Business> businesses) {
+            public void onChanged(@Nullable final List<Place> places) {
                 findViewById(R.id.progressBar).setVisibility(View.GONE);
 
-                if (businesses != null) {
+                if (places != null) {
                     findViewById(R.id.locations_list).setVisibility(View.VISIBLE);
                     findViewById(R.id.empty_list).setVisibility(View.GONE);
-                    mDataAdapter.setDataSet(businesses);
+                    mDataAdapter.setDataSet(places);
                     mDataAdapter.notifyDataSetChanged();
-                    ((PizzaMeApplication)getApplication()).setBusinessCache(businesses);
                 }
             }
         };
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onSuccess(Location location) {
                                 String latitude = String.valueOf(location.getLatitude());
                                 String longitude = String.valueOf(location.getLongitude());
-                                mModel.searchNearestBusinessesFrom(latitude, longitude);
+                                mModel.searchNearestBusinessesFrom(latitude, longitude, PIZZA_TERM);
                             }
                         });
             }

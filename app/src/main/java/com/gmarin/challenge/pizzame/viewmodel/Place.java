@@ -2,6 +2,7 @@ package com.gmarin.challenge.pizzame.viewmodel;
 
 
 public class Place {
+
     private final String name;
     private final String imageUrl;
     private final float rating;
@@ -19,6 +20,34 @@ public class Place {
         this.phoneNumber = phoneNumber;
         this.distance = distance;
         this.address = address;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public int getReviewCount() {
+        return reviewCount;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public static class PlaceBuilder {

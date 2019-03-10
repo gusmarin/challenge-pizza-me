@@ -25,7 +25,7 @@ public class DataRepository implements IDataRepository {
                 for (Business business: businesses.getBusinesses()) {
                     placeList.add(fromBusiness(business));
                 }
-
+                callback.onSuccess(placeList);
             }
 
             @Override
