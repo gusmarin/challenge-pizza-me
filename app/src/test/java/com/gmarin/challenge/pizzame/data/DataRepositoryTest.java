@@ -3,6 +3,7 @@ package com.gmarin.challenge.pizzame.data;
 import com.gmarin.challenge.pizzame.data.network.yelp.YelpRepository;
 import com.gmarin.challenge.pizzame.data.network.yelp.model.Business;
 import com.gmarin.challenge.pizzame.data.network.yelp.model.Businesses;
+import com.gmarin.challenge.pizzame.viewmodel.Place;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +13,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
@@ -66,4 +69,20 @@ public class DataRepositoryTest {
         verify(callback).onFailure("No places found");
     }
 
+    @Test
+    public void testValidList() {
+        dataRepository.getNearestPlaces("", "", "", callback);
+        verify(yelpRepository).getNearestPlaces(anyString(), anyString(), anyString(), iCallbackArgumentCaptor.capture());
+
+        Business business = new Business();
+        business.setName("Test");
+
+        List<Business> testList = new ArrayList<>();
+        testList.add(business);
+        Businesses businesses = new Businesses();
+        businesses.setBusinesses(testList);
+        iCallbackArgumentCaptor.getValue().onSuccess(businesses);
+
+        verify(callback).onSuccess(any());
+    }
 }

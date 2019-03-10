@@ -2,6 +2,7 @@ package com.gmarin.challenge.pizzame.data.network.yelp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Business {
@@ -28,6 +29,19 @@ public class Business {
 
     @SerializedName("location")
     private Location location;
+
+    public Business() {
+        this.id = "";
+        this.name = "";
+        this.image_url = "";
+        this.rating = 0;
+        this.review_count = 0;
+        this.display_phone = "";
+        this.distance = 0;
+        Location location = new Location();
+        location.setDisplay_address(new ArrayList<String>());
+        this.location = location;
+    }
 
     public static class Location {
         @SerializedName("display_address")
