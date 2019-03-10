@@ -52,9 +52,11 @@ public class MainActivity extends AppCompatActivity {
         mBusinessesObserver = new Observer<List<Business>>() {
             @Override
             public void onChanged(@Nullable final List<Business> businesses) {
-                ProgressBar spinner = findViewById(R.id.progressBar);
-                spinner.setVisibility(View.GONE);
+                findViewById(R.id.progressBar).setVisibility(View.GONE);
+
                 if (businesses != null) {
+                    findViewById(R.id.locations_list).setVisibility(View.VISIBLE);
+                    findViewById(R.id.empty_list).setVisibility(View.GONE);
                     mDataAdapter.setDataSet(businesses);
                     mDataAdapter.notifyDataSetChanged();
                     ((PizzaMeApplication)getApplication()).setBusinessCache(businesses);
@@ -73,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.setItemAnimator(new DefaultItemAnimator());
         listView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        listView.setVisibility(View.INVISIBLE);
+
         ProgressBar spinner = findViewById(R.id.progressBar);
         spinner.setVisibility(View.GONE);
 
