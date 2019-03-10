@@ -35,7 +35,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private PlaceViewModel mModel;
-    private Observer<List<Place>> mBusinessesObserver;
+    private Observer<PlaceViewModel.PlaceWrapper> mBusinessesObserver;
     private BusinessListAdapter mDataAdapter;
     private FusedLocationProviderClient mLocationClient;
 
@@ -49,17 +49,20 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
 
-        mBusinessesObserver = new Observer<List<Place>>() {
+        mBusinessesObserver = new Observer<PlaceViewModel.PlaceWrapper>() {
             @Override
-            public void onChanged(@Nullable final List<Place> places) {
+            public void onChanged(@Nullable final PlaceViewModel.PlaceWrapper places) {
                 findViewById(R.id.progressBar).setVisibility(View.GONE);
 
-                if (places != null) {
-                    findViewById(R.id.locations_list).setVisibility(View.VISIBLE);
-                    findViewById(R.id.empty_list).setVisibility(View.GONE);
-                    mDataAdapter.setDataSet(places);
-                    mDataAdapter.notifyDataSetChanged();
+                if (places.getError() != null) {
+                    Toast.makeText(getBaseContext(), "Error: " + places.getError(), Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                findViewById(R.id.locations_list).setVisibility(View.VISIBLE);
+                findViewById(R.id.empty_list).setVisibility(View.GONE);
+                mDataAdapter.setDataSet(places.getPlaces());
+                mDataAdapter.notifyDataSetChanged();
             }
         };
 

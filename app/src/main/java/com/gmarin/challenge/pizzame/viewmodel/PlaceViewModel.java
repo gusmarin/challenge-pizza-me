@@ -8,14 +8,13 @@ import androidx.annotation.NonNull;
 import com.gmarin.challenge.pizzame.data.DataRepository;
 import com.gmarin.challenge.pizzame.data.IDataCallback;
 import com.gmarin.challenge.pizzame.data.IDataRepository;
-import com.gmarin.challenge.pizzame.data.network.yelp.model.Business;
 import com.gmarin.challenge.pizzame.data.network.yelp.YelpRepository;
 
 import java.util.List;
 
 public class PlaceViewModel extends AndroidViewModel {
 
-    private MutableLiveData<List<Place>> mObservableBusinesses = new MutableLiveData<>();
+    private MutableLiveData<PlaceWrapper> mObservableBusinesses = new MutableLiveData<>();
 
     private IDataRepository mDataRepository;
 
@@ -28,17 +27,36 @@ public class PlaceViewModel extends AndroidViewModel {
         mDataRepository.getNearestPlaces(latitude, longitude, term, new IDataCallback<List<Place>>() {
             @Override
             public void onSuccess(List<Place> places) {
-                mObservableBusinesses.setValue(places);
+                mObservableBusinesses.setValue(new PlaceWrapper(places, null));
             }
 
             @Override
             public void onFailure(String error) {
-                // TODO handle UI failures later
+                mObservableBusinesses.setValue(new PlaceWrapper(null, error));
             }
         });
     }
 
-    public MutableLiveData<List<Place>> getNearestBusinesses() {
+    public MutableLiveData<PlaceWrapper> getNearestBusinesses() {
         return mObservableBusinesses;
+    }
+
+    public static class PlaceWrapper {
+        private final List<Place> places;
+
+        private final String error;
+
+        public PlaceWrapper(List<Place> places, String error) {
+            this.places = places;
+            this.error = error;
+        }
+
+        public List<Place> getPlaces() {
+            return places;
+        }
+
+        public String getError() {
+            return error;
+        }
     }
 }
