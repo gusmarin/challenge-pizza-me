@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import com.gmarin.challenge.pizzame.data.DataRepository;
 import com.gmarin.challenge.pizzame.data.IDataCallback;
 import com.gmarin.challenge.pizzame.data.IDataRepository;
+import com.gmarin.challenge.pizzame.data.entity.Place;
 import com.gmarin.challenge.pizzame.data.network.yelp.YelpRepository;
 
 import java.util.List;

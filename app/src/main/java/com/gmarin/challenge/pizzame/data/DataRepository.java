@@ -1,15 +1,17 @@
 package com.gmarin.challenge.pizzame.data;
 
+import com.gmarin.challenge.pizzame.data.client.ICallbackImpl;
+import com.gmarin.challenge.pizzame.data.client.IDataImpl;
 import com.gmarin.challenge.pizzame.data.network.yelp.model.Business;
 import com.gmarin.challenge.pizzame.data.network.yelp.model.Businesses;
-import com.gmarin.challenge.pizzame.viewmodel.Place;
+import com.gmarin.challenge.pizzame.data.entity.Place;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataRepository implements IDataRepository {
 
-    private final IDataImpl mDataRepo;
+    private IDataImpl mDataRepo;
     private static DataRepository mRepository;
 
     private DataRepository(IDataImpl dataImpl) {
@@ -61,7 +63,10 @@ public class DataRepository implements IDataRepository {
     public static synchronized IDataRepository getInstance(IDataImpl dataImpl) {
         if  (mRepository == null) {
             mRepository = new DataRepository(dataImpl);
+        } else {
+            mRepository.mDataRepo = dataImpl;
         }
         return mRepository;
     }
+
 }

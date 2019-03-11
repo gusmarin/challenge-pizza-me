@@ -1,4 +1,4 @@
-package com.gmarin.challenge.pizzame.viewmodel;
+package com.gmarin.challenge.pizzame.data.entity;
 
 
 public class Place {

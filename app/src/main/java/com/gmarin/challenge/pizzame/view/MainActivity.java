@@ -23,14 +23,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.gmarin.challenge.pizzame.R;
-import com.gmarin.challenge.pizzame.viewmodel.Place;
 import com.gmarin.challenge.pizzame.viewmodel.PlaceViewModel;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.gmarin.challenge.pizzame.data;
+package com.gmarin.challenge.pizzame.data.client;
 
 public interface ICallbackImpl<T> {
     void onSuccess(T places);

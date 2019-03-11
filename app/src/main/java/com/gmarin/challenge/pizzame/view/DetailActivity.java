@@ -17,7 +17,7 @@ import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.core.app.NavUtils;
 
 import com.gmarin.challenge.pizzame.R;
-import com.gmarin.challenge.pizzame.viewmodel.Place;
+import com.gmarin.challenge.pizzame.data.entity.Place;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 

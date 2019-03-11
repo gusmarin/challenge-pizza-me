@@ -1,15 +1,17 @@
 package com.gmarin.challenge.pizzame.data;
 
+import com.gmarin.challenge.pizzame.data.client.ICallbackImpl;
 import com.gmarin.challenge.pizzame.data.network.yelp.YelpRepository;
 import com.gmarin.challenge.pizzame.data.network.yelp.model.Business;
 import com.gmarin.challenge.pizzame.data.network.yelp.model.Businesses;
-import com.gmarin.challenge.pizzame.viewmodel.Place;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
@@ -41,6 +43,12 @@ public class DataRepositoryTest {
         Business.Location mockLocation = new Business.Location();
         mockLocation.setDisplay_address(new ArrayList<String>());
         testBusiness.setLocation(mockLocation);
+    }
+
+    @After
+    public void finishSetup() {
+        Mockito.reset(yelpRepository);
+        Mockito.reset(callback);
     }
 
     @Test

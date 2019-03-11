@@ -1,7 +1,7 @@
 package com.gmarin.challenge.pizzame.data.network.yelp;
 
-import com.gmarin.challenge.pizzame.data.ICallbackImpl;
-import com.gmarin.challenge.pizzame.data.IDataImpl;
+import com.gmarin.challenge.pizzame.data.client.ICallbackImpl;
+import com.gmarin.challenge.pizzame.data.client.IDataImpl;
 import com.gmarin.challenge.pizzame.data.network.yelp.model.Businesses;
 import com.gmarin.challenge.pizzame.data.network.yelp.model.BusinessDistanceComparator;
 

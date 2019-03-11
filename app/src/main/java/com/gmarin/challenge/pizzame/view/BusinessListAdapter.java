@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gmarin.challenge.pizzame.R;
-import com.gmarin.challenge.pizzame.viewmodel.Place;
+import com.gmarin.challenge.pizzame.data.entity.Place;
 
 import java.text.DecimalFormat;
 import java.util.List;
