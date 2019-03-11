@@ -16,7 +16,8 @@ The user is able to see a detail view of each place where they can perform
 2. CLASS DIAGRAM
 
 MainActivity -> PlaceViewModel -> IDataRepository -> IDataImpl
- Observer    <- PlaceViewModel <- IDataCallback <-  ICallbackImpl
+
+Observer    <- PlaceViewModel <- IDataCallback <-  ICallbackImpl
                 
 3. ARCHITECTURE
 
