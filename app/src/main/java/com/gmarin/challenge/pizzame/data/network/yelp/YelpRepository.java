@@ -1,6 +1,6 @@
 package com.gmarin.challenge.pizzame.data.network.yelp;
 
-import com.gmarin.challenge.pizzame.data.IDataCallback;
+import com.gmarin.challenge.pizzame.data.ICallbackImpl;
 import com.gmarin.challenge.pizzame.data.IDataImpl;
 import com.gmarin.challenge.pizzame.data.network.yelp.model.Businesses;
 import com.gmarin.challenge.pizzame.data.network.yelp.model.BusinessDistanceComparator;
@@ -36,7 +36,7 @@ public class YelpRepository implements IDataImpl {
     }
 
     @Override
-    public void getNearestPlaces(String latitude, String longitude, String term, final IDataCallback callback) {
+    public void getNearestPlaces(String latitude, String longitude, String term, final ICallbackImpl callback) {
         YelpWebService webService = mRetrofit.create(YelpWebService.class);
         Call<Businesses> call = webService.getNearestBusiness(latitude, longitude, term);
 

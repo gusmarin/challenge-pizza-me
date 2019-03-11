@@ -18,7 +18,7 @@ public class DataRepository implements IDataRepository {
 
     @Override
     public void getNearestPlaces(String latitude, String longitude, String term, final IDataCallback callback) {
-        mDataRepo.getNearestPlaces(latitude, longitude, term, new IDataCallback<Businesses>() {
+        mDataRepo.getNearestPlaces(latitude, longitude, term, new ICallbackImpl<Businesses>() {
             @Override
             public void onSuccess(Businesses businesses) {
                 List<Place> placeList = new ArrayList<>();

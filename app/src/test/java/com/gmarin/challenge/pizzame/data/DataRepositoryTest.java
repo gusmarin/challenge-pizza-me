@@ -25,7 +25,7 @@ public class DataRepositoryTest {
     YelpRepository yelpRepository;
 
     @Captor
-    ArgumentCaptor<IDataCallback> iCallbackArgumentCaptor;
+    ArgumentCaptor<ICallbackImpl> iCallbackArgumentCaptor;
 
     @Mock
     IDataCallback callback;

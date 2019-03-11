@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ProgressBar spinner = findViewById(R.id.progressBar);
                 spinner.setVisibility(View.VISIBLE);
-                // TODO handle no connectivity
                 mLocationClient.getLastLocation()
                         .addOnSuccessListener(new OnSuccessListener<Location>() {
                             @Override
