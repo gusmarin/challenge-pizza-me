@@ -14,6 +14,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', "YELP_KEY", YELP_API_KEY
+            resValue 'string', "YELP_KEY", YELP_API_KEY
+        }
+
+        debug {
+            buildConfigField 'String', "YELP_KEY", YELP_API_KEY
+            resValue 'string', "YELP_KEY", YELP_API_KEY
         }
     }
 }

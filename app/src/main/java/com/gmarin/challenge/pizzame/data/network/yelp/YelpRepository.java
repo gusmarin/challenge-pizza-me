@@ -1,5 +1,6 @@
 package com.gmarin.challenge.pizzame.data.network.yelp;
 
+import com.gmarin.challenge.pizzame.BuildConfig;
 import com.gmarin.challenge.pizzame.data.client.ICallbackImpl;
 import com.gmarin.challenge.pizzame.data.client.IDataImpl;
 import com.gmarin.challenge.pizzame.data.network.yelp.model.Businesses;
@@ -17,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class YelpRepository implements IDataImpl {
     private static final String BASE_URL = "https://api.yelp.com";
     // TODO hide this key
-    protected static final String API_KEY = "Bearer TFmaxhGD522LOAxMjLExlKsIfu5j5J5FsdR1UuwQwaZ1EzoGiPLpddlIrdlwVGbFDxz9MVVSpS32ItWDewpjCqT-5JHC92ym2hRjamDmCJ-N8mpWMIGIu0oeWvJ_XHYx";
+    protected static final String API_KEY = "Bearer " + BuildConfig.YELP_KEY;
 
     private Retrofit mRetrofit;
 
@@ -29,7 +30,7 @@ public class YelpRepository implements IDataImpl {
                 .build();
     }
 
-    public OkHttpClient getClient() {
+    private OkHttpClient getClient() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
         return new OkHttpClient.Builder().addInterceptor(logging).build();
