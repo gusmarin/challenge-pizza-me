@@ -12,9 +12,8 @@ import java.util.List;
 public class DataRepository implements IDataRepository {
 
     private IDataImpl mDataRepo;
-    private static DataRepository mRepository;
 
-    private DataRepository(IDataImpl dataImpl) {
+    public DataRepository(IDataImpl dataImpl) {
         mDataRepo = dataImpl;
     }
 
@@ -59,14 +58,4 @@ public class DataRepository implements IDataRepository {
 
         return builder.build();
     }
-
-    public static synchronized IDataRepository getInstance(IDataImpl dataImpl) {
-        if  (mRepository == null) {
-            mRepository = new DataRepository(dataImpl);
-        } else {
-            mRepository.mDataRepo = dataImpl;
-        }
-        return mRepository;
-    }
-
 }

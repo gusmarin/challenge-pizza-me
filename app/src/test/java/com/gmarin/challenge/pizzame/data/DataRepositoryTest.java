@@ -38,7 +38,7 @@ public class DataRepositoryTest {
     @Before
     public void initSetup() {
         MockitoAnnotations.initMocks(this);
-        dataRepository = DataRepository.getInstance(yelpRepository);
+        dataRepository = new DataRepository(yelpRepository);
         testBusiness = new Business();
         Business.Location mockLocation = new Business.Location();
         mockLocation.setDisplay_address(new ArrayList<String>());

@@ -21,7 +21,7 @@ public class PlaceViewModel extends AndroidViewModel {
 
     public PlaceViewModel(@NonNull Application application) {
         super(application);
-        mDataRepository = DataRepository.getInstance(new YelpRepository());
+        mDataRepository = new DataRepository(new YelpRepository());
     }
 
     public void searchNearestBusinessesFrom(String latitude, String longitude, String term) {
