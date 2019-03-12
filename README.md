@@ -2,10 +2,10 @@
 Coding challenge for application that displays closest pizza locations
 
 Topics:
-1. Use Cases
-2. Class diagram
-3. Architecture
-4. Notes
+* Use Cases
+* Class diagram
+* Architecture
+* Notes
 
 1. USE CASES
 The user is able to search nearby Pizza places based on current location
