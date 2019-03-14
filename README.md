@@ -6,6 +6,7 @@ Topics:
 * Class diagram
 * Architecture
 * Notes
+* Pending features
 
 1. USE CASES
 The user is able to search nearby Pizza places based on current location
@@ -53,5 +54,13 @@ Pending Items on the scope on this challenge:
  - Introduce persistent storage in the sense of storing favorite restaurants so they appear
    at the top (if distance is within range) or just access them offline any time in another
    view.
+   
+5. Pending features
+  - Network caching. We should not hit the server again until we are out of a geo fence as 
+    location doesnt change often
+  - Different types of business not just pizza places needs to be added
+  - Threading management needs to be added. THere has to be a separation of tasks in different
+    executors.
+   
  
    
